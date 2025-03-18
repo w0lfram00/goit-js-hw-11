@@ -25,8 +25,6 @@ function onSubmit(event) {
     resetGallery();
     fetchFromPixabay(form.elements['search-text'].value)
       .then(resalt => {
-        console.log(resalt);
-        loaderStop();
         if (resalt.hits.length == 0) {
           iziToast.error({
             message: 'No resalt found',
@@ -37,6 +35,9 @@ function onSubmit(event) {
       })
       .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        loaderStop();
       });
     form.reset();
   }
