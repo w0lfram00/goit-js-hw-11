@@ -5,6 +5,7 @@ import { renderGallery, resetGallery } from './js/render-functions';
 
 const refs = {
   form: document.querySelector('form'),
+  loader: document.querySelector('.loader'),
 };
 refs.form.addEventListener('submit', onSubmit);
 loaderStop();
@@ -41,8 +42,8 @@ function onSubmit(event) {
 }
 
 function loaderStart() {
-  refs.form.insertAdjacentHTML('afterEnd', '<span class="loader"></span>');
+  refs.loader.className = 'loader';
 }
 function loaderStop() {
-  document.querySelector('.loader').remove();
+  refs.loader.className = '';
 }
