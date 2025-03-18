@@ -7,14 +7,12 @@ const refs = {
   form: document.querySelector('form'),
 };
 refs.form.addEventListener('submit', onSubmit);
+loaderStop();
 
 function onSubmit(event) {
   event.preventDefault();
   const form = event.target;
-  document.body.insertAdjacentHTML(
-    'afterBegin',
-    '<span class="loader"></span>'
-  );
+  loaderStart();
   if (!form.elements['search-text'].value.trim()) {
     iziToast.show({
       message: 'Please, enter something for us to look for',
@@ -26,7 +24,7 @@ function onSubmit(event) {
     resetGallery();
     fetchFromPixabay(form.elements['search-text'].value)
       .then(resalt => {
-        document.querySelector('.loader').remove();
+        loaderStop();
         if (resalt.data.hits.length == 0) {
           iziToast.error({
             message: 'No resalt found',
@@ -40,4 +38,11 @@ function onSubmit(event) {
       });
     form.reset();
   }
+}
+
+function loaderStart() {
+  refs.form.insertAdjacentHTML('afterEnd', '<span class="loader"></span>');
+}
+function loaderStop() {
+  document.querySelector('.loader').remove();
 }
