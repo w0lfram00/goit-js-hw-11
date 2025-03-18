@@ -5,7 +5,6 @@ const BASE_URL = 'https://pixabay.com';
 axios.defaults.baseURL = BASE_URL;
 
 export function fetchFromPixabay(query) {
-  let data;
   return axios
     .get('/api/', {
       params: {
